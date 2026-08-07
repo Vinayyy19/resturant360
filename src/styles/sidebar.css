@@ -1,0 +1,177 @@
+.sidebar {
+  width: 230px;
+  height: 100vh;
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 14px;
+  flex-shrink: 0;
+  user-select: none;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 68px;
+  padding: 16px 8px;
+}
+
+.logo-container {
+  padding: 10px 8px 24px 8px;
+  display: flex;
+  align-items: center;
+  transition: padding 0.3s ease, justify-content 0.3s ease;
+}
+
+.sidebar.collapsed .logo-container {
+  justify-content: center;
+  padding: 10px 0 24px 0;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.logo-badge {
+  background: var(--text-main);
+  color: var(--bg-sidebar);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 20px;
+  border: 1.5px solid var(--accent-orange);
+  margin-left: 2px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.sidebar.collapsed .menu-item {
+  padding: 12px 0;
+  justify-content: center;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar.collapsed .menu-left {
+  justify-content: center;
+  width: 100%;
+  gap: 0;
+}
+
+.menu-item .menu-icon {
+  font-size: 16px;
+  color: var(--text-sub);
+  transition: color 0.2s ease;
+}
+
+.menu-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+}
+
+.menu-item.active {
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  color: var(--accent-orange);
+  font-weight: 600;
+}
+
+.menu-item.active .menu-icon {
+  color: var(--accent-orange);
+}
+
+.active-indicator {
+  width: 3.5px;
+  height: 14px;
+  background-color: var(--accent-orange);
+  border-radius: 4px;
+}
+
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 8px;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.2s ease, justify-content 0.3s ease;
+}
+
+.sidebar.collapsed .logout-btn {
+  justify-content: center;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.logout-btn:hover {
+  color: var(--accent-red);
+}
+
+.collapse-btn {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.sidebar.collapsed .collapse-btn {
+  justify-content: center;
+  padding: 8px 0;
+  width: 100%;
+  color: var(--accent-orange);
+  background: rgba(249, 115, 22, 0.12);
+  border-color: rgba(249, 115, 22, 0.3);
+}
+
+.collapse-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-hover);
+}
