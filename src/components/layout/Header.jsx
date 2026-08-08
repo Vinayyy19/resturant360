@@ -1,0 +1,197 @@
+import { useState } from "react";
+import {
+  FaStore,
+  FaSun,
+  FaMoon,
+  FaExpand,
+  FaCompress,
+  FaBell,
+  FaCheck,
+  FaChevronDown,
+  FaCheckDouble
+} from "react-icons/fa";
+import "../../styles/header.css";
+
+/**
+ * Header Component
+ * 
+ * Provides quick status toggles, branch selection dropdown, dark/light theme switcher,
+ * browser fullscreen controls, and interactive notification drawer UI.
+ */
+function Header({ isDarkMode, setIsDarkMode }) {
+  const [isOnline, setIsOnline] = useState(true);
+  const [store, setStore] = useState("rahul");
+  const [showStoreMenu, setShowStoreMenu] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Mock list of POS notifications
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: "New Order Received", text: "Table T9 placed order #104 (₹294)", time: "2 mins ago", unread: true },
+    { id: 2, title: "KOT Status Update", text: "Kitchen marked Chicken 65 Ready", time: "5 mins ago", unread: true },
+    { id: 3, title: "Loyalty Points Claimed", text: "Customer +91 9876543210 redeemed 50 pts", time: "12 mins ago", unread: false }
+  ]);
+
+  // Native Fullscreen API trigger
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+      }
+    }
+  };
+
+  // Marks all notifications as read
+  const markAllRead = () => {
+    setNotifications(notifications.map((n) => ({ ...n, unread: false })));
+  };
+
+  const unreadCount = notifications.filter((n) => n.unread).length;
+
+  return (
+    <header className="header">
+      {/* Title & Subtitle */}
+      <div className="header-left">
+        <h1>POS / Billing</h1>
+        <p>Process orders and manage billing.</p>
+      </div>
+
+      {/* Header Actions Toolbar */}
+      <div className="header-right">
+        {/* Online/Offline Status Pill Toggle */}
+        <button
+          className={`status-pill ${isOnline ? "online" : "offline"}`}
+          onClick={() => setIsOnline(!isOnline)}
+          title="Click to toggle Online/Offline status"
+        >
+          <span className="status-dot"></span>
+          <span>{isOnline ? "Online" : "Offline"}</span>
+        </button>
+
+        {/* Store / Branch Selector Dropdown */}
+        <div className="store-pill-wrapper">
+          <button
+            className="store-pill"
+            onClick={() => {
+              setShowStoreMenu(!showStoreMenu);
+              setShowNotifications(false);
+            }}
+          >
+            <FaStore className="store-icon" />
+            <span>{store}</span>
+            <FaChevronDown className={`arrow-icon ${showStoreMenu ? "open" : ""}`} />
+          </button>
+
+          {showStoreMenu && (
+            <div className="header-dropdown store-dropdown">
+              <div className="dropdown-title">Select Branch / Store</div>
+              {["rahul", "Main Branch - Downtown", "Express Outlet - Station"].map((branch) => (
+                <div
+                  key={branch}
+                  className={`dropdown-item ${store === branch ? "active" : ""}`}
+                  onClick={() => {
+                    setStore(branch);
+                    setShowStoreMenu(false);
+                  }}
+                >
+                  <span>{branch}</span>
+                  {store === branch && <FaCheck className="check-icon" />}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Dark / Light Mode Theme Switcher */}
+        <button
+          className="header-icon-btn theme-toggle-btn"
+          title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          onClick={() => setIsDarkMode(!isDarkMode)}
+        >
+          {isDarkMode ? <FaSun className="sun-icon" /> : <FaMoon className="moon-icon" />}
+        </button>
+
+        {/* Fullscreen Mode Button */}
+        <button
+          className="header-icon-btn"
+          title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+          onClick={toggleFullscreen}
+        >
+          {isFullscreen ? <FaCompress /> : <FaExpand />}
+        </button>
+
+        {/* Notification Bell & Interactive Drawer */}
+        <div className="notification-wrapper">
+          <button
+            className={`header-icon-btn notification-btn ${showNotifications ? "active" : ""}`}
+            title="Notifications"
+            onClick={() => {
+              setShowNotifications(!showNotifications);
+              setShowStoreMenu(false);
+            }}
+          >
+            <FaBell />
+            {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
+          </button>
+
+          {showNotifications && (
+            <div className="header-dropdown notification-dropdown">
+              <div className="dropdown-header">
+                <div className="notif-header-title">
+                  <FaBell className="header-icon" />
+                  <span>Notifications</span>
+                  {unreadCount > 0 && <span className="count-pill">{unreadCount} New</span>}
+                </div>
+                {unreadCount > 0 && (
+                  <button className="mark-read-btn" onClick={markAllRead}>
+                    <FaCheckDouble /> Read all
+                  </button>
+                )}
+              </div>
+
+              <div className="notif-list">
+                {notifications.length === 0 ? (
+                  <div className="empty-notif">No notifications yet</div>
+                ) : (
+                  notifications.map((n) => (
+                    <div key={n.id} className={`notif-card ${n.unread ? "unread" : ""}`}>
+                      <div className="notif-card-header">
+                        <span className="notif-card-title">{n.title}</span>
+                        <span className="notif-card-time">{n.time}</span>
+                      </div>
+                      <p className="notif-card-text">{n.text}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {notifications.length > 0 && (
+                <div className="dropdown-footer">
+                  <button
+                    className="clear-all-btn"
+                    onClick={() => setNotifications([])}
+                  >
+                    Clear All Notifications
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Cashier User Profile Avatar */}
+        <div className="user-profile">
+          <div className="avatar-circle">CA</div>
+          <div className="user-info">
+            <span className="user-name">cashier1</span>
+            <span className="user-role">Cashier</span>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export default Header;
