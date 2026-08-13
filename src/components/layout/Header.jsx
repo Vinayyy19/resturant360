@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   FaStore,
   FaSun,
@@ -25,12 +25,31 @@ function Header({ isDarkMode, setIsDarkMode }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  const notifRef = useRef(null);
+  const storeRef = useRef(null);
+
   // Mock list of POS notifications
   const [notifications, setNotifications] = useState([
     { id: 1, title: "New Order Received", text: "Table T9 placed order #104 (₹294)", time: "2 mins ago", unread: true },
     { id: 2, title: "KOT Status Update", text: "Kitchen marked Chicken 65 Ready", time: "5 mins ago", unread: true },
     { id: 3, title: "Loyalty Points Claimed", text: "Customer +91 9876543210 redeemed 50 pts", time: "12 mins ago", unread: false }
   ]);
+
+  // Click outside to close dropdowns
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (notifRef.current && !notifRef.current.contains(event.target)) {
+        setShowNotifications(false);
+      }
+      if (storeRef.current && !storeRef.current.contains(event.target)) {
+        setShowStoreMenu(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Native Fullscreen API trigger
   const toggleFullscreen = () => {
@@ -71,11 +90,11 @@ function Header({ isDarkMode, setIsDarkMode }) {
         </button>
 
         {/* Store / Branch Selector Dropdown */}
-        <div className="store-pill-wrapper">
+        <div className="store-pill-wrapper" ref={storeRef}>
           <button
             className="store-pill"
             onClick={() => {
-              setShowStoreMenu(!showStoreMenu);
+              setShowStoreMenu((prev) => !prev);
               setShowNotifications(false);
             }}
           >
@@ -123,12 +142,13 @@ function Header({ isDarkMode, setIsDarkMode }) {
         </button>
 
         {/* Notification Bell & Interactive Drawer */}
-        <div className="notification-wrapper">
+        <div className="notification-wrapper" ref={notifRef}>
           <button
             className={`header-icon-btn notification-btn ${showNotifications ? "active" : ""}`}
             title="Notifications"
-            onClick={() => {
-              setShowNotifications(!showNotifications);
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowNotifications((prev) => !prev);
               setShowStoreMenu(false);
             }}
           >

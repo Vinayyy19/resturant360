@@ -9,6 +9,7 @@
   user-select: none;
   transition: background-color 0.3s ease, border-color 0.3s ease;
   z-index: 100;
+  position: relative;
 }
 
 .header-left h1 {
@@ -66,7 +67,11 @@
   font-size: 14px;
 }
 
-/* Notification Bell Badge */
+/* Notification Wrapper & Badge */
+.notification-wrapper {
+  position: relative;
+}
+
 .notification-btn .notification-badge {
   position: absolute;
   top: -2px;
@@ -178,7 +183,7 @@
   border: 1px solid var(--border-color);
   border-radius: 12px;
   box-shadow: var(--shadow-md);
-  z-index: 1000;
+  z-index: 10000;
   overflow: hidden;
   animation: fadeInDown 0.2s ease-out;
 }
