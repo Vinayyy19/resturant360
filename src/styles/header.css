@@ -1,0 +1,406 @@
+.header {
+  height: 64px;
+  background-color: var(--bg-header);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border-color);
+  user-select: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  z-index: 100;
+  position: relative;
+}
+
+.header-left h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.header-left p {
+  color: var(--text-sub);
+  font-size: 12px;
+  margin: 2px 0 0 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Header Action Icon Buttons */
+.header-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13.5px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.header-icon-btn:hover,
+.header-icon-btn.active {
+  background: var(--bg-hover);
+  color: var(--text-main);
+  border-color: var(--accent-orange);
+  transform: translateY(-1px);
+}
+
+.theme-toggle-btn .sun-icon {
+  color: #f59e0b;
+  font-size: 15px;
+}
+
+.theme-toggle-btn .moon-icon {
+  color: #818cf8;
+  font-size: 14px;
+}
+
+/* Notification Wrapper & Badge */
+.notification-wrapper {
+  position: relative;
+}
+
+.notification-btn .notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #ef4444;
+  color: #ffffff;
+  font-size: 9.5px;
+  font-weight: 800;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg-header);
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* Status Pill */
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.status-pill.online {
+  background-color: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+.status-pill.offline {
+  background-color: rgba(148, 163, 184, 0.12);
+  color: var(--text-muted);
+  border-color: rgba(148, 163, 184, 0.25);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.status-pill.offline .status-dot {
+  background-color: #94a3b8;
+  box-shadow: none;
+}
+
+/* Store Selector Pill */
+.store-pill-wrapper {
+  position: relative;
+}
+
+.store-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  padding: 7px 14px;
+  border-radius: 20px;
+  color: var(--text-main);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.store-pill:hover {
+  border-color: var(--accent-orange);
+}
+
+.store-icon {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.arrow-icon {
+  font-size: 10px;
+  color: var(--text-sub);
+  transition: transform 0.2s ease;
+}
+
+.arrow-icon.open {
+  transform: rotate(180deg);
+}
+
+/* General Dropdown Container */
+.header-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  z-index: 10000;
+  overflow: hidden;
+  animation: fadeInDown 0.2s ease-out;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Store Dropdown */
+.store-dropdown {
+  width: 220px;
+  padding: 8px;
+}
+
+.dropdown-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-sub);
+  letter-spacing: 0.5px;
+  padding: 6px 10px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--bg-hover);
+}
+
+.dropdown-item.active {
+  background-color: rgba(249, 115, 22, 0.12);
+  color: var(--accent-orange);
+  font-weight: 600;
+}
+
+.check-icon {
+  font-size: 11px;
+  color: var(--accent-orange);
+}
+
+/* Notification Dropdown Drawer */
+.notification-dropdown {
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.notif-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.notif-header-title .header-icon {
+  color: var(--accent-orange);
+  font-size: 14px;
+}
+
+.count-pill {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+.mark-read-btn {
+  background: transparent;
+  border: none;
+  color: var(--accent-orange);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mark-read-btn:hover {
+  text-decoration: underline;
+}
+
+.notif-list {
+  max-height: 280px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-notif {
+  padding: 24px 14px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.notif-card {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s ease;
+}
+
+.notif-card:last-child {
+  border-bottom: none;
+}
+
+.notif-card.unread {
+  background-color: rgba(249, 115, 22, 0.04);
+}
+
+.notif-card:hover {
+  background-color: var(--bg-hover);
+}
+
+.notif-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.notif-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.notif-card-time {
+  font-size: 10px;
+  color: var(--text-sub);
+}
+
+.notif-card-text {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.dropdown-footer {
+  padding: 8px 14px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-panel);
+}
+
+.clear-all-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-sub);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+
+.clear-all-btn:hover {
+  color: #ef4444;
+}
+
+/* User Profile Badge */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 6px;
+}
+
+.avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-orange);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  color: var(--text-main);
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.user-role {
+  color: var(--text-sub);
+  font-size: 10.5px;
+}
