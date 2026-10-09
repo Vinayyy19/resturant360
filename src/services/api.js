@@ -80,10 +80,49 @@ export const sendChatbotMessage = (payload) =>
     body: JSON.stringify(payload),
   });
 
+export const createAddonGroup = (payload) =>
+  apiRequest('/addons', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+
+export const updateAddonGroup = (id, payload) =>
+  apiRequest(`/addons/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  });
+
+export const deleteAddonGroup = (id) =>
+  apiRequest(`/addons/${id}`, {
+    method: 'DELETE',
+  });
+
+export const updateProduct = (productId, payload) =>
+  apiRequest(`/products/${productId}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  });
+
+export const deleteProduct = (productId) =>
+  apiRequest(`/products/${productId}`, {
+    method: 'DELETE',
+  });
+
+export const createTable = (payload) =>
+  apiRequest('/tables', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+
 export const updateTableStatus = (tableId, status) =>
   apiRequest(`/tables/${tableId}/status`, {
     method: 'PUT',
     body: JSON.stringify({ status }),
+  });
+
+export const deleteTable = (tableId) =>
+  apiRequest(`/tables/${tableId}`, {
+    method: 'DELETE',
   });
 
 export const advanceKdsTicket = (ticketId) =>
@@ -91,10 +130,60 @@ export const advanceKdsTicket = (ticketId) =>
     method: 'PUT',
   });
 
-export default apiRequest;
+export const createKdsTicket = (payload) =>
+  apiRequest('/kds/tickets', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+
+export const deleteKdsTicket = (ticketId) =>
+  apiRequest(`/kds/tickets/${ticketId}`, {
+    method: 'DELETE',
+  });
+
+export const createInventoryItem = (payload) =>
+  apiRequest('/inventory', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+
+export const updateInventoryItem = (itemId, payload) =>
+  apiRequest(`/inventory/${itemId}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  });
+
+export const deleteInventoryItem = (itemId) =>
+  apiRequest(`/inventory/${itemId}`, {
+    method: 'DELETE',
+  });
+
+export const createCustomer = (payload) =>
+  apiRequest('/customers', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+
+export const updateCustomer = (customerId, payload) =>
+  apiRequest(`/customers/${customerId}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+  });
+
+export const deleteCustomer = (customerId) =>
+  apiRequest(`/customers/${customerId}`, {
+    method: 'DELETE',
+  });
 
 export const updateSettings = (payload) =>
   apiRequest('/settings', {
     method: 'PUT',
     body: JSON.stringify(payload),
   });
+
+export const resetSettings = () =>
+  apiRequest('/settings/reset', {
+    method: 'POST',
+  });
+
+export default apiRequest;
